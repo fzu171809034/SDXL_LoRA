@@ -1,0 +1,67 @@
+huggingface-cli login
+
+python train_text_to_image_lora_sdxl.py `
+  --pretrained_model_name_or_path "stabilityai/stable-diffusion-xl-base-1.0" `
+
+  --pretrained_model_name_or_path "C:\Users\jiang\Image_Generation\model_fold\stable-diffusion-xl-base-1.0" `
+
+  --dataset_name "(Hugging Face Hub 上的数据集)" `
+
+  --train_data_dir "C:\Users\jiang\Image_Generation\Dataset" `
+
+  --train_batch_size 2 `
+  --num_train_epochs 50 `
+  --learning_rate 1e-4 `
+  --train_text_encoder `
+
+  --resolution 512 `
+  --gradient_accumulation_steps 4 `
+  --mixed_precision fp16 `
+  
+  --validation_prompt "yinlin wearing a red dress in a beautiful garden"
+  --num_validation_images 4
+  --validation_epochs 5
+
+  --output_dir "/content/drive/MyDrive/Colab_Notebooks/output/yinlin_lora_model"
+  --output_dir "C:\Users\jiang\Image_Generation\model_fold\yinlin_lora_model"
+重复：
+	-repeats = 1,2
+
+文本逆化：
+	--train_text_encoder_ti
+	--train_text_encoder_ti_frac=0.5
+	--token_abstraction="TOK"
+	--num_new_tokens_per_abstraction=2
+	--adam_weight_decay_text_encoder
+
+--train_batch_size = 1, 2,3, 4
+-repeats = 1,2
+-learning_rate = 1.0 (Prodigy), 1e-4 (AdamW)
+-text_encoder_lr = 1.0 (Prodigy), 3e-4, 5e-5 (AdamW)
+-snr_gamma = None, 5.0
+-max_train_steps = 1000, 1500, 1800
+-text_encoder_training = regular finetuning, pivotal tuning (textual inversion)
+
+
+usage: train_text_to_image_lora_sdxl.py [-h] --pretrained_model_name_or_path PRETRAINED_MODEL_NAME_OR_PATH
+                                        [--pretrained_vae_model_name_or_path PRETRAINED_VAE_MODEL_NAME_OR_PATH] [--revision REVISION]    
+                                        [--variant VARIANT] [--dataset_name DATASET_NAME] [--dataset_config_name DATASET_CONFIG_NAME]    
+                                        [--train_data_dir TRAIN_DATA_DIR] [--image_column IMAGE_COLUMN]
+                                        [--caption_column CAPTION_COLUMN] [--validation_prompt VALIDATION_PROMPT]
+                                        [--num_validation_images NUM_VALIDATION_IMAGES] [--validation_epochs VALIDATION_EPOCHS]
+                                        [--max_train_samples MAX_TRAIN_SAMPLES] [--output_dir OUTPUT_DIR] [--cache_dir CACHE_DIR]        
+                                        [--seed SEED] [--resolution RESOLUTION] [--center_crop] [--random_flip] [--train_text_encoder]   
+                                        [--train_batch_size TRAIN_BATCH_SIZE] [--num_train_epochs NUM_TRAIN_EPOCHS]
+                                        [--max_train_steps MAX_TRAIN_STEPS] [--checkpointing_steps CHECKPOINTING_STEPS]
+                                        [--checkpoints_total_limit CHECKPOINTS_TOTAL_LIMIT]
+                                        [--resume_from_checkpoint RESUME_FROM_CHECKPOINT]
+                                        [--gradient_accumulation_steps GRADIENT_ACCUMULATION_STEPS] [--gradient_checkpointing]
+                                        [--learning_rate LEARNING_RATE] [--scale_lr] [--lr_scheduler LR_SCHEDULER]
+                                        [--lr_warmup_steps LR_WARMUP_STEPS] [--snr_gamma SNR_GAMMA] [--allow_tf32]
+                                        [--dataloader_num_workers DATALOADER_NUM_WORKERS] [--use_8bit_adam] [--adam_beta1 ADAM_BETA1]    
+                                        [--adam_beta2 ADAM_BETA2] [--adam_weight_decay ADAM_WEIGHT_DECAY] [--adam_epsilon ADAM_EPSILON]  
+                                        [--max_grad_norm MAX_GRAD_NORM] [--push_to_hub] [--hub_token HUB_TOKEN]
+                                        [--prediction_type PREDICTION_TYPE] [--hub_model_id HUB_MODEL_ID] [--logging_dir LOGGING_DIR]    
+                                        [--report_to REPORT_TO] [--mixed_precision {no,fp16,bf16}] [--local_rank LOCAL_RANK]
+                                        [--enable_xformers_memory_efficient_attention] [--enable_npu_flash_attention]
+                                        [--noise_offset NOISE_OFFSET] [--rank RANK] [--debug_loss]
